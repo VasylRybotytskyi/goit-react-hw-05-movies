@@ -1,6 +1,6 @@
 import { Link, Outlet, useParams } from 'react-router-dom';
 
-export const MoviesItem = () => {
+const MoviesItem = () => {
   const { ElId } = useParams();
   console.log(ElId);
   return (
@@ -18,3 +18,4 @@ export const MoviesItem = () => {
     </>
   );
 };
+export default MoviesItem;
