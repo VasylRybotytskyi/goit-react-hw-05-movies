@@ -8,10 +8,10 @@ export const MoviesItem = () => {
       <h2>{ElId}</h2>
       <ul>
         <li>
-          <Link to="gallery">Cast</Link>
+          <Link to="cast">Cast</Link>
         </li>
         <li>
-          <Link to="photo">Reviews</Link>
+          <Link to="reviews">Reviews</Link>
         </li>
       </ul>
       <Outlet />
