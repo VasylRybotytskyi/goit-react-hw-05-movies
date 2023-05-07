@@ -1,11 +1,13 @@
 import { Link, Outlet, useParams } from 'react-router-dom';
 
 const MoviesItem = () => {
-  const { ElId } = useParams();
-  console.log(ElId);
+  const { movieId } = useParams();
+  // id of one movie
+  console.log(movieId);
+
   return (
     <>
-      <h2>{ElId}</h2>
+      <h2>{movieId}</h2>
       <ul>
         <li>
           <Link to="cast">Cast</Link>
