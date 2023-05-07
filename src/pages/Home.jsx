@@ -11,7 +11,7 @@ export const Home = () => {
     const fetchTrendingMovies = async () => {
       try {
         const { results } = await fetchTrendMovies();
-        setTrendingMovies(results);
+        setTrendingMovies(results); //записуємо result в trendingMovies
       } catch (error) {
         setError(true);
       } finally {

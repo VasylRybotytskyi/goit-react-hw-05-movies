@@ -8,8 +8,16 @@ export const fetchTrendMovies = async () => {
   return data;
 };
 
-export const fetchMoviesBySearchTerm = async searchTerm => {
-  const url = `/search/movie?api_key=${API_KEY}&query=${searchTerm}`;
-  const response = await axios.get(url);
-  return response.data.results;
+export const fetchMoviesBySearch = async query => {
+  const { data } = await axios.get(
+    `/search/movie?api_key=${API_KEY}&query=${query}`
+  );
+
+  return data;
+};
+
+export const fetchMovieById = async movieId => {
+  const { data } = await axios.get(`/movie/${movieId}?api_key=${API_KEY}`);
+
+  return data;
 };
