@@ -1,21 +1,24 @@
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import fetchMoviesBySearchTerm from 'components/fetchMoviesBySearchTerm';
+import { Link, useSearchParams } from 'react-router-dom';
+import { fetchMoviesBySearchTerm } from 'components/fetchMovies';
+import { useState } from 'react';
 
 export const Movies = () => {
   const [fetchedMovies, setFetchedMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (searchTerm) {
-      fetchMoviesBySearchTerm(searchTerm)
-        .then(movies => {
-          setFetchedMovies(movies);
-        })
-        .catch(error => console.log(error));
+  const handleSearchClick = async () => {
+    setIsLoading(true);
+    try {
+      const movies = await fetchMoviesBySearchTerm(searchTerm);
+      setFetchedMovies(movies);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
-  }, [searchTerm]);
+  };
 
   const visibleMovies = fetchedMovies.filter(movie =>
     movie.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -36,9 +39,13 @@ export const Movies = () => {
         onChange={handleSearchTermChange}
         placeholder="Search movies..."
       />
+      <button onClick={handleSearchClick}>Search</button>
+      {isLoading && <div>Loading...</div>}
       <ul>
         {visibleMovies.map(movie => (
-          <li key={movie.id}>{movie.title}</li>
+          <li key={movie.id}>
+            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+          </li>
         ))}
       </ul>
     </div>
