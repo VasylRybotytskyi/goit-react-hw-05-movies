@@ -1,3 +1,4 @@
+import MovieList from 'components/MovieList/MovieList';
 import { useEffect, useState } from 'react';
 import { fetchTrendMovies } from 'services/api';
 
@@ -22,5 +23,14 @@ export const Home = () => {
 
     fetchTrendingMovies();
   }, []);
-  return <>{isLoading && <>Loading...</>}</>;
-};
+  return (
+    <>
+      {isLoading && <LoadingIndicator />}
+      {error ? (
+        <p>Sorry, we could not fetch the trending movies. Please try again later.</p>
+      ) : (
+        <MovieList trendingMovies={trendingMovies} />
+      )}
+    </>
+  );
+
