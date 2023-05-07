@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import fetchMoviesBySearchTerm from 'components/fetchMoviesBySearchTerm';
 
 export const Movies = () => {
   const [fetchedMovies, setFetchedMovies] = useState([]);
@@ -8,21 +8,14 @@ export const Movies = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    const fetchMovies = async () => {
-      const apiKey = '84068d2acd9315c3be219a34cf5a6c3a';
-      axios.defaults.baseURL = 'https://api.themoviedb.org/3';
-      const url = `/search/search-movies?api_key=${apiKey}`;
-
-      try {
-        const response = await axios.get(url);
-        setFetchedMovies(response.data.results);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchMovies();
-  }, []);
+    if (searchTerm) {
+      fetchMoviesBySearchTerm(searchTerm)
+        .then(movies => {
+          setFetchedMovies(movies);
+        })
+        .catch(error => console.log(error));
+    }
+  }, [searchTerm]);
 
   const visibleMovies = fetchedMovies.filter(movie =>
     movie.title.toLowerCase().includes(searchTerm.toLowerCase())
