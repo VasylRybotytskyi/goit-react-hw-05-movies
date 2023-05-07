@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchMovies } from 'components/fetchMovies';
+import { fetchTrendMovies } from 'services/api';
 
 export const Home = () => {
   const [movies, setMovies] = useState([]);
   useEffect(() => {
-    fetchMovies()
+    fetchTrendMovies()
       .then(movies => {
         setMovies(movies);
       })

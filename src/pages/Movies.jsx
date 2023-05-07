@@ -1,5 +1,5 @@
 import { Link, useSearchParams } from 'react-router-dom';
-import { fetchMoviesBySearchTerm } from 'components/fetchMovies';
+import { fetchMoviesBySearchTerm } from 'services/api';
 import { useState } from 'react';
 
 export const Movies = () => {
