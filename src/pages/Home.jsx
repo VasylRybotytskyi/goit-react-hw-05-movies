@@ -10,27 +10,28 @@ export const Home = () => {
   useEffect(() => {
     const fetchTrendingMovies = async () => {
       try {
-        setError(false);
-        setIsLoading(true);
         const { results } = await fetchTrendMovies();
         setTrendingMovies(results);
       } catch (error) {
         setError(true);
       } finally {
-        setIsLoading(false);
+        setIsLoading(false); // встановлення стану на завершення завантаження
       }
     };
 
     fetchTrendingMovies();
   }, []);
+
   return (
     <>
-      {isLoading && <LoadingIndicator />}
+      {isLoading && <div>Loading...</div>}
       {error ? (
-        <p>Sorry, we could not fetch the trending movies. Please try again later.</p>
+        <p>
+          Sorry, we could not fetch the trending movies. Please try again later.
+        </p>
       ) : (
         <MovieList trendingMovies={trendingMovies} />
       )}
     </>
   );
-
+};
