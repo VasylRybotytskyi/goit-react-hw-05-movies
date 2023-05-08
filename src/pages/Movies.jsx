@@ -1,5 +1,6 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { fetchMoviesBySearch } from 'services/api';
 
 export const Movies = () => {
   const [fetchedMovies, setFetchedMovies] = useState([]);
@@ -37,8 +38,9 @@ export const Movies = () => {
 
     const getMovie = async () => {
       try {
+        // const { results } => await fetchMoviesBySearch(query) ;
       } catch (error) {}
     };
-  });
+  }, [searchParams]);
   return <></>;
 };
