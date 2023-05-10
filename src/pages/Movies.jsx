@@ -1,46 +1,49 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchMoviesBySearch } from 'services/api';
+import SearchMovies from 'components/SearchMovies/SearchMovies';
+import Notiflix from 'notiflix';
 
 export const Movies = () => {
-  const [fetchedMovies, setFetchedMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // const [isLoading, setIsLoading] = useState(false);
-
-  // const handleSearchClick = async () => {
-  //   setIsLoading(true);
-  //   try {
-  //     const movies = await fetchMoviesBySearchTerm(searchTerm);
-  //     setFetchedMovies(movies);
-  //   } catch (error) {
-  //     console.log(error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
-  // const visibleMovies = fetchedMovies.filter(movie =>
-  //   movie.title.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
-
-  // const handleSearchTermChange = event => {
-  //   const searchTerm = event.target.value;
-  //   setSearchTerm(searchTerm);
-  //   const nextParams = searchTerm ? { name: searchTerm } : {};
-  //   setSearchParams(nextParams);
-  // };
   useEffect(() => {
-    const query = useSearchParams.length('query') ?? '';
-    if (query) {
+    const query = searchParams.get('query') ?? '';
+    if (!query) {
       return;
     }
 
     const getMovie = async () => {
       try {
-        // const { results } => await fetchMoviesBySearch(query) ;
-      } catch (error) {}
+        const { results } = await fetchMoviesBySearch(query);
+        if (results.length === 0) {
+          Notiflix.Notify.error('No movies found');
+          setMovies([]);
+        } else {
+          setMovies(results);
+        }
+      } catch (error) {
+        setMovies([]);
+      }
     };
+    getMovie();
   }, [searchParams]);
-  return <></>;
+
+  const handleSubmit = query => {
+    setSearchParams({ query });
+  };
+
+  return (
+    <>
+      <SearchMovies onSubmit={handleSubmit}></SearchMovies>
+      <ul>
+        {movies.map(movie => (
+          <li key={movie.id}>
+            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
 };
