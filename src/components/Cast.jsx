@@ -20,6 +20,7 @@ export const Cast = () => {
 
   return (
     <>
+      <h2>Cast</h2>
       <ul>
         {cast.map(actor => (
           <li key={actor.id}>
@@ -34,6 +35,10 @@ export const Cast = () => {
                 alt={`${actor.name} profile`}
               />
             )}
+            <div>
+              <p>{actor.name}</p>
+              <p>Character: {actor.character}</p>
+            </div>
           </li>
         ))}
       </ul>
