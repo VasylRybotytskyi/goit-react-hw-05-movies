@@ -1,3 +1,4 @@
+import MovieCard from 'components/MovieCard/MovieCard';
 import { Link, Outlet, useParams } from 'react-router-dom';
 
 const MoviesItem = () => {
@@ -16,6 +17,8 @@ const MoviesItem = () => {
           <Link to="reviews">Reviews</Link>
         </li>
       </ul>
+
+      <MovieCard movie={selectedMovie} />
       <Outlet />
     </>
   );
