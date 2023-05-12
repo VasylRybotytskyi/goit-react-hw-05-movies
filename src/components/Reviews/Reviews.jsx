@@ -1,6 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieReviews } from '../../services/api';
+import {
+  Author,
+  NoReviewsText,
+  Review,
+  ReviewHeader,
+  ReviewList,
+  ReviewListItem,
+  Wrapper,
+} from './Reviews.styled';
 const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
@@ -18,21 +27,23 @@ const Reviews = () => {
   }, [movieId]);
 
   return (
-    <>
-      <h2>Reviews</h2>
+    <Wrapper>
+      <ReviewHeader>Reviews</ReviewHeader>
       {reviews.length ? (
-        <ul className="reviews-container">
+        <ReviewList className="reviews-container">
           {reviews.map(review => (
-            <li className="review-card" key={review.id}>
-              <p>Author: {review.author}</p>
-              <p>{review.content}</p>
-            </li>
+            <ReviewListItem className="review-card" key={review.id}>
+              <Author>Author: {review.author}</Author>
+              <Review>{review.content}</Review>
+            </ReviewListItem>
           ))}
-        </ul>
+        </ReviewList>
       ) : (
-        <p>We don't have any reviews for this movie yet.</p>
+        <NoReviewsText>
+          We don't have any reviews for this movie yet.
+        </NoReviewsText>
       )}
-    </>
+    </Wrapper>
   );
 };
 

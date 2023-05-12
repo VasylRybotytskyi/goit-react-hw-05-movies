@@ -1,19 +1,25 @@
-import { Link } from 'react-router-dom';
+import {
+  List,
+  ListItem,
+  SectionTitle,
+  StyledLink,
+  StyledSection,
+} from './MovieList.styled';
 
 const MovieList = ({ trendingMovies }) => {
   return (
-    <>
-      <h2>Tranding Today</h2>
-      <ul>
+    <StyledSection>
+      <SectionTitle>Tranding Today</SectionTitle>
+      <List>
         {trendingMovies.map(trendingMovie => (
-          <li key={trendingMovie.id}>
-            <Link to={`/movies/${trendingMovie.id}`}>
+          <ListItem key={trendingMovie.id}>
+            <StyledLink to={`/movies/${trendingMovie.id}`}>
               {trendingMovie.title}
-            </Link>
-          </li>
+            </StyledLink>
+          </ListItem>
         ))}
-      </ul>
-    </>
+      </List>
+    </StyledSection>
   );
 };
 

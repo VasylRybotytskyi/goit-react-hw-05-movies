@@ -1,4 +1,5 @@
 import { Notify } from 'notiflix';
+import { Button, Form, Input } from './SearchMovies.styled';
 
 const SearchMovies = ({ onSubmit }) => {
   const handleSubmit = e => {
@@ -15,10 +16,10 @@ const SearchMovies = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="query" type="text" placeholder="Search movies"></input>
-      <button>Search</button>
-    </form>
+    <Form onSubmit={handleSubmit}>
+      <Input name="query" type="text" placeholder="Search movies"></Input>
+      <Button>Search</Button>
+    </Form>
   );
 };
 export default SearchMovies;

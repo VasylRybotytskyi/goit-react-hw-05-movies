@@ -1,16 +1,24 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchMovieCast } from '../../services/api';
+import {
+  CastHeader,
+  CastInfo,
+  CastList,
+  CastListItem,
+  CastName,
+  Wrapper,
+} from './Cast.styled';
 
-export const Cast = () => {
+const Cast = () => {
   const { movieId } = useParams();
-  const [cast, setCast] = useState([]);
+  const [castList, setCastList] = useState([]);
 
   useEffect(() => {
     const fetchCast = async () => {
       try {
         const { cast } = await fetchMovieCast(movieId);
-        setCast(cast);
+        setCastList(cast);
       } catch (error) {
         console.log(error);
       }
@@ -19,11 +27,11 @@ export const Cast = () => {
   }, [movieId]);
 
   return (
-    <>
-      <h2>Cast</h2>
-      <ul>
-        {cast.map(actor => (
-          <li key={actor.id}>
+    <Wrapper>
+      <CastHeader>Cast</CastHeader>
+      <CastList>
+        {castList.map(actor => (
+          <CastListItem key={actor.id}>
             {actor.profile_path ? (
               <img
                 src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
@@ -35,13 +43,15 @@ export const Cast = () => {
                 alt={`${actor.name} profile`}
               />
             )}
-            <div>
-              <p>{actor.name}</p>
+            <CastInfo>
+              <CastName>{actor.name}</CastName>
               <p>Character: {actor.character}</p>
-            </div>
-          </li>
+            </CastInfo>
+          </CastListItem>
         ))}
-      </ul>
-    </>
+      </CastList>
+    </Wrapper>
   );
 };
+
+export default Cast;

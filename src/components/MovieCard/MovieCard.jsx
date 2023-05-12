@@ -1,5 +1,18 @@
-import { Loading } from 'notiflix';
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {
+  Img,
+  List,
+  ListItem,
+  MoreInfoHeader,
+  MoreInfoWrapper,
+  MovieCardContainer,
+  MovieInfo,
+  MovieInfoText,
+  MovieInfoTextBold,
+  MovieName,
+  StyledLink,
+} from './MovieCard.styled';
 
 const MovieCard = ({ movie }) => {
   const { title, release_date, poster_path, vote_average, overview, genres } =
@@ -19,33 +32,68 @@ const MovieCard = ({ movie }) => {
     ? `${(vote_average * 10).toFixed(0)}%`
     : 'Not rated yet';
 
-  if (!title) {
-    return <Loading />;
-  }
-
   return (
     <>
-      <div>
-        <img src={posterUrl} alt={`${title} poster`} />
+      <MovieCardContainer>
+        <Img src={posterUrl} alt={`${title} poster`} />
 
-        <div>
-          <p>
+        <MovieInfo>
+          <MovieName>
             {title ?? 'Unknown'} ({releaseYear})
-          </p>
-          <p>User Score: {userScore}</p>
-          <div>
-            <p>Overview:</p>
-            {overview}
-          </div>
+          </MovieName>
+          <MovieInfoText>User Score: {userScore}</MovieInfoText>
+          <MovieInfoText>
+            <MovieInfoTextBold>Overview:</MovieInfoTextBold> {overview}
+          </MovieInfoText>
+
+          {/* додаємо перевірку на наявність жанрів */}
           {genres && genres.length > 0 && (
-            <div>
-              <p>Genres:</p>
+            <MovieInfoText>
+              <MovieInfoTextBold>Genres:</MovieInfoTextBold>
               {genres.map(genre => genre.name).join(', ')}
-            </div>
+            </MovieInfoText>
           )}
-        </div>
-      </div>
+        </MovieInfo>
+      </MovieCardContainer>
+
+      <MoreInfoWrapper>
+        <MoreInfoHeader>Additional information</MoreInfoHeader>
+
+        <List>
+          <ListItem>
+            <StyledLink
+              to="cast"
+              state={{ from: location?.state?.from ?? '/' }}
+            >
+              Cast
+            </StyledLink>
+          </ListItem>
+
+          <ListItem>
+            <StyledLink
+              to="reviews"
+              state={{ from: location?.state?.from ?? '/' }}
+            >
+              Reviews
+            </StyledLink>
+          </ListItem>
+        </List>
+      </MoreInfoWrapper>
     </>
   );
 };
+
+MovieCard.propTypes = {
+  movie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    release_date: PropTypes.string.isRequired,
+    poster_path: PropTypes.string.isRequired,
+    vote_average: PropTypes.number,
+    overview: PropTypes.string,
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({ name: PropTypes.string.isRequired })
+    ),
+  }).isRequired,
+};
+
 export default MovieCard;

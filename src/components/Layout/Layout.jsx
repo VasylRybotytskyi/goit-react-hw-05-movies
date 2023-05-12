@@ -1,15 +1,23 @@
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import { StyledLink } from './Layout.styled';
-export const Layout = () => {
+import { LoadingIndicator } from './LoadingIndicator';
+import { StyledHeader, StyledNavLink } from './Layout.styled';
+
+const Layout = () => {
   return (
     <>
-      <nav>
-        <StyledLink to="/">Home</StyledLink>
-        <StyledLink to="/movies">Movies</StyledLink>
-      </nav>
-      <main>
+      <StyledHeader>
+        <nav>
+          <StyledNavLink to="/">Home</StyledNavLink>
+          <StyledNavLink to="/movies">Movies</StyledNavLink>
+        </nav>
+      </StyledHeader>
+
+      <Suspense fallback={<LoadingIndicator />}>
         <Outlet />
-      </main>
+      </Suspense>
     </>
   );
 };
+
+export default Layout;

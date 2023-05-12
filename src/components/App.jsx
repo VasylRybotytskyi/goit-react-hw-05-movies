@@ -3,7 +3,7 @@ import { Home } from '../pages/Home';
 import { Movies } from '../pages/Movies';
 import MoviesItem from '../pages/MoviesDetails';
 import { Layout } from './Layout/Layout';
-import { Cast } from './Cast/Cast';
+import Cast from './Cast/Cast';
 import Reviews from './Reviews/Reviews';
 
 export const App = () => {
