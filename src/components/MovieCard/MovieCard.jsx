@@ -13,6 +13,7 @@ import {
   MovieName,
   StyledLink,
 } from './MovieCard.styled';
+import LoadingIndicator from 'components/Layout/LoadingIndicator';
 
 const MovieCard = ({ movie }) => {
   const { title, release_date, poster_path, vote_average, overview, genres } =
@@ -31,6 +32,10 @@ const MovieCard = ({ movie }) => {
   const userScore = vote_average
     ? `${(vote_average * 10).toFixed(0)}%`
     : 'Not rated yet';
+
+  if (!title) {
+    return <LoadingIndicator />;
+  }
 
   return (
     <>
