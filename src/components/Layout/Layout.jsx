@@ -1,6 +1,6 @@
-// import { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-// import { LoadingIndicator } from './LoadingIndicator';
+import LoadingIndicator from './LoadingIndicator';
 import { StyledHeader, StyledNavLink } from './Layout.styled';
 
 const Layout = () => {
@@ -13,9 +13,9 @@ const Layout = () => {
         </nav>
       </StyledHeader>
 
-      {/* <Suspense fallback={<LoadingIndicator />}> */}
-      <Outlet />
-      {/* </Suspense> */}
+      <Suspense fallback={<LoadingIndicator />}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

@@ -2,7 +2,7 @@ import MovieList from 'components/MovieList/MovieList';
 import { useEffect, useState } from 'react';
 import { fetchTrendMovies } from 'services/api';
 
-export const Home = () => {
+const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -35,3 +35,5 @@ export const Home = () => {
     </>
   );
 };
+
+export default Home;

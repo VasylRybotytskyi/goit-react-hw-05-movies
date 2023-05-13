@@ -1,12 +1,20 @@
-import { Link, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchMoviesBySearch } from 'services/api';
 import SearchMovies from 'components/SearchMovies/SearchMovies';
 import Notiflix from 'notiflix';
+import {
+  SectionTitle,
+  StyledSection,
+  List,
+  ListItem,
+  StyledLink,
+} from 'components/MovieList/MovieList.styled';
 
-export const Movies = () => {
+const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
 
   useEffect(() => {
     const query = searchParams.get('query') ?? '';
@@ -35,15 +43,24 @@ export const Movies = () => {
   };
 
   return (
-    <>
-      <SearchMovies onSubmit={handleSubmit}></SearchMovies>
-      <ul>
-        {movies.map(movie => (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-          </li>
-        ))}
-      </ul>
-    </>
+    <main>
+      <StyledSection>
+        <SectionTitle>Movies Page</SectionTitle>
+        <SearchMovies onSubmit={handleSubmit} />{' '}
+        {/* додаємо компонент для пошуку фільму */}
+        <List>
+          {movies.map(movie => (
+            <ListItem key={movie.id}>
+              {/* додаємо посилання на сторінку фільму */}
+              <StyledLink to={`/movies/${movie.id}`} state={{ from: location }}>
+                {movie.title}
+              </StyledLink>
+            </ListItem>
+          ))}
+        </List>
+      </StyledSection>
+    </main>
   );
 };
+
+export default Movies;

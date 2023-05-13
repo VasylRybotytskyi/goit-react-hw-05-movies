@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router';
-import { Home } from '../pages/Home';
-import { Movies } from '../pages/Movies';
+import Home from '../pages/Home';
+import Movies from '../pages/Movies';
 import MoviesItem from '../pages/MoviesDetails';
 import Layout from './Layout/Layout';
 import Cast from './Cast/Cast';

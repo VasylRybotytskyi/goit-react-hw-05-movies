@@ -10,9 +10,11 @@ import {
   ReviewListItem,
   Wrapper,
 } from './Reviews.styled';
+
 const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
+
   useEffect(() => {
     const fetchReviews = async () => {
       try {

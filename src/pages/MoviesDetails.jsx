@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieById } from '../services/api';
 import { BsArrowLeftShort } from 'react-icons/bs';
-import { Loading } from 'notiflix';
+// import { Loading } from 'notiflix';
 // import { Suspense } from 'react';
 
 const MoviesItem = () => {
