@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const StyledHeader = styled.header`
-  padding: 20px 30px;
+  padding: 20px 10px;
   text-align: center;
   box-shadow: 0px 4px 4px #d3d3d3;
 `;
@@ -22,7 +22,7 @@ export const StyledNavLink = styled(NavLink)`
   &.active,
   &:hover,
   &:focus {
-    color: #1c85ff;
+    color: #e23838;
     text-decoration: underline;
   }
 `;
@@ -49,7 +49,7 @@ export const Dot = styled.div`
   height: 20px;
   margin-right: 10px;
   border-radius: 50%;
-  background-color: #1c85ff;
+  background-color: #e23838;
   animation: ${bounce} 1s infinite ease-in-out;
   animation-delay: ${({ delay }) => delay};
 `;

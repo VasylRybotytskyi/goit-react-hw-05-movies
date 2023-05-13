@@ -33,7 +33,5 @@ export const GlobalStyle = createGlobalStyle`
     list-style: none;
   }
 
-  #root {
-    padding: 20px;
-  }
+ 
 `;
