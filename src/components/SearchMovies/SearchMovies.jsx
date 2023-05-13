@@ -15,15 +15,7 @@ const SearchMovies = ({ onSubmit }) => {
       return;
     }
 
-    try {
-      const results = await onSubmit(query); // Виклик функції onSubmit з переданим пошуковим запитом
-
-      if (results.length === 0) {
-        Notiflix.Notify.failure('No movies found'); // Виведення повідомлення про помилку, якщо немає результатів пошуку
-      }
-    } catch (error) {
-      Notiflix.Notify.failure('An error occurred. Please try again later.'); // Виведення повідомлення про помилку при невдачі в API
-    }
+    onSubmit(query);
 
     e.target.reset(); // Очищення значень полів форми
   };
