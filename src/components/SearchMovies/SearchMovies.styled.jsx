@@ -17,7 +17,7 @@ export const Input = styled.input`
   outline: none;
 
   &:focus {
-    border-color: #0d57aa;
+    border-color: #f94141;
     box-shadow: 0 0 5px rgba(13, 87, 170, 0.3);
   }
 `;

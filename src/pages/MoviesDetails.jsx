@@ -4,8 +4,8 @@ import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieById } from '../services/api';
 import { BsArrowLeftShort } from 'react-icons/bs';
 import { Button, Container } from './MoviesDetails.styled';
-// import { Loading } from 'notiflix';
-// import { Suspense } from 'react';
+import LoadingIndicator from 'components/Layout/LoadingIndicator';
+import { Suspense } from 'react';
 
 const MoviesItem = () => {
   const { movieId } = useParams();
@@ -41,9 +41,9 @@ const MoviesItem = () => {
           </Button>
         </Link>
         <MovieCard movie={selectedMovie} />
-        {/* <Suspense fallback={<Loading />}> */}
-        <Outlet />
-        {/* </Suspense> */}
+        <Suspense fallback={<LoadingIndicator />}>
+          <Outlet />
+        </Suspense>
       </Container>
     </main>
   );
