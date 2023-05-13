@@ -1,45 +1,46 @@
-import { useLocation, useSearchParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { fetchMoviesBySearch } from 'services/api';
-import SearchMovies from 'components/SearchMovies/SearchMovies';
-import Notiflix from 'notiflix';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom'; // Імпорт хуків useLocation і useSearchParams
+import { fetchMoviesBySearch } from 'services/api'; // Імпорт функції fetchMoviesBySearch для отримання фільмів пошуком
+import SearchMovies from 'components/SearchMovies/SearchMovies'; // Імпорт компонента SearchMovies для пошуку фільмів
+import Notiflix from 'notiflix'; // Імпорт пакету Notiflix для відображення повідомлень
 import {
   SectionTitle,
   StyledSection,
   List,
   ListItem,
   StyledLink,
-} from 'components/MovieList/MovieList.styled';
+} from 'components/MovieList/MovieList.styled'; // Імпорт стилів для розмітки компонентів
 
 const Movies = () => {
-  const [movies, setMovies] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const location = useLocation();
+  const [movies, setMovies] = useState([]); // Ініціалізація стану для списку фільмів
+  const [searchParams, setSearchParams] = useSearchParams(); // Отримання параметрів пошуку з URL
+  const location = useLocation(); // Отримання поточного розташування
 
   useEffect(() => {
-    const query = searchParams.get('query') ?? '';
+    const query = searchParams.get('query') ?? ''; // Отримання значення параметра пошуку з URL
     if (!query) {
       return;
     }
 
-    const getMovie = async () => {
+    const getMovies = async () => {
       try {
-        const { results } = await fetchMoviesBySearch(query);
+        const { results } = await fetchMoviesBySearch(query); // Отримання фільмів з використанням функції fetchMoviesBySearch
         if (results.length === 0) {
-          Notiflix.Notify.error('No movies found');
-          setMovies([]);
+          Notiflix.Notify.error('No movies found'); // Відображення повідомлення про відсутність фільмів
+          setMovies([]); // Оновлення стану списку фільмів
         } else {
-          setMovies(results);
+          setMovies(results); // Оновлення стану списку фільмів з отриманими результатами
         }
       } catch (error) {
-        setMovies([]);
+        setMovies([]); // Оновлення стану списку фільмів при виникненні помилки
       }
     };
-    getMovie();
+
+    getMovies(); // Виклик функції для отримання фільмів пошуком
   }, [searchParams]);
 
   const handleSubmit = query => {
-    setSearchParams({ query });
+    setSearchParams({ query }); // Оновлення параметрів пошуку з введеним запитом користувача
   };
 
   return (
