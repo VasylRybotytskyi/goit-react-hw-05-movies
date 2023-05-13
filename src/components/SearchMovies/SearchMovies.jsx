@@ -1,5 +1,6 @@
 import { Notify } from 'notiflix';
 import { Button, Form, Input } from './SearchMovies.styled';
+import PropTypes from 'prop-types';
 
 const SearchMovies = ({ onSubmit }) => {
   const handleSubmit = e => {
@@ -22,4 +23,7 @@ const SearchMovies = ({ onSubmit }) => {
     </Form>
   );
 };
+
 export default SearchMovies;
+
+SearchMovies.propTypes = { onSubmit: PropTypes.func.isRequired };

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieById } from '../services/api';
 import { BsArrowLeftShort } from 'react-icons/bs';
+import { Button, Container } from './MoviesDetails.styled';
 // import { Loading } from 'notiflix';
 // import { Suspense } from 'react';
 
@@ -26,21 +27,24 @@ const MoviesItem = () => {
 
   return (
     <main>
-      <div>
+      <Container>
         {/* Повертає назад*/}
-        <Link to={location?.state?.from ?? '/'}>
-          <button type="button">
+        <Link
+          to={location?.state?.from ?? '/'}
+          style={{ textDecoration: 'none' }}
+        >
+          <Button type="button">
             <BsArrowLeftShort
               style={{ width: '25px', height: '25px', display: 'inline-block' }}
             />
             Go back
-          </button>
+          </Button>
         </Link>
         <MovieCard movie={selectedMovie} />
         {/* <Suspense fallback={<Loading />}> */}
         <Outlet />
         {/* </Suspense> */}
-      </div>
+      </Container>
     </main>
   );
 };
